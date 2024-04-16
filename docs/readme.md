@@ -60,10 +60,11 @@
 - stanowisko
 - dataZatrudnienia
 - dataZakonczeniaPracy
-- przypisaneZadania
+- przypisaneZadania/metoda
 
 **Kierownictwo** *extends: Ludzie*:
 - przypisaneProjekty
+####
   ***Metody:***
 - Zarządzanie pracownikiem(dodaj, usuń, modyfikuj, przypiszDoZadania)
 - Zarządzanie projektem(dodaj, usuń, modyfikuj, przypisz/utworzZadania)
@@ -72,6 +73,7 @@
 - Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi)
 
 **Pracownicy** *extends: Ludzie*:
+####
 ***Metody:***
 - Wyświetl projekty(przypisane do pracownika)
 - Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )
