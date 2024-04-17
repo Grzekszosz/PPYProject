@@ -1,5 +1,4 @@
-# Stipant 
-'z łac. 'Juczny'
+# Stipant
 
 ## System zarządzania projektami
 
@@ -10,22 +9,26 @@
 ### Wymagania:
 
 1. Tworzenie nowych projektów z opisem i datami rozpoczęcia i zakończenia.
-2. Dodawanie zadań do projektów z szczegółami takimi jak opis, priorytet, terminy, osoba odpowiedzialna, osoba przydzielona, czas pracy danej osoby.
+2. Dodawanie zadań do projektów z szczegółami takimi jak opis, priorytet, terminy, osoba odpowiedzialna, osoba przydzielona
 3. Wyswietlanie listy projektów i zadań.
 4. Edycja i usuwanie projektów i zadań.
 5. Filtracja projektów/zadań według statusu, priorytetu, terminów.
 6. Interaktywny interfejs użytkownika.
 7. Zarządzanie pracownikami(imię, nazwisko, stanowisko)
 8. Obsługa błędów i odpowiednie komunikaty dla użytkownika.
-
+9. Dodawanie logow do zadan od pracownikow wraz z czasem przeznaczonym
+10. Wykorzystanie plików i folderów w formie 'bazy'
 ### Opis Klas
-**Projekt**:
-- id
+
+**Misja**:
+- id(*unikalny*)
 - nazwa
 - opis
 - data rozpoczęcia
 - data zakończenia
-- lista zadań
+
+**Projekt** *extends: Misja*::
+- podpięte zadania
 - przypisane osoby
 - osoba prowadząca
 - liczba zaplanowanych godzin(**calculate:** *suma godzin z zadań*)
@@ -33,16 +36,14 @@
 - postęp (**calculate:** *suma zaplanowanych ukończonych godzin z zadań(ukończone) / suma godzin z zadań zaplanowanych(w toku, otwarte, blokada)*)
 
 
-**Zadania**:
-- id(*unikalny*)
-- nazwa
-- opis
+**Zadania** *extends: Misja*:
 - priorytet (*bardzo niski, niski, normalny, wysoki, bardzo wysoki*)
-- data rozpoczęcia
-- data zakończenia
+- status (*otwarte, w toku, zamknięte, blokada*)
 - podpięte podzadanie (zadanie)
 - przypisane osoby (*wraz z przydzielonym czasem ile powinno zająć zadanie*)
 - osoba odpowiedzialna
+- czas zaplanowany
+- czas poswiecony
 - postęp (**calculate:** *suma godzin z pod zadań / suma godzin wykonanych zadań*)
 - logi_pracy
 
@@ -50,17 +51,18 @@
 - id
 - czas(*timestamp*)
 - autor(*class:* **pracownicy**)
-- Opis
+- opis
 - czas przepalony
 
 **Ludzie**:
 - id
 - imie
 - nazwisko
+- hasło
 - stanowisko
-- dataZatrudnienia
-- dataZakonczeniaPracy
-- przypisaneZadania/metoda
+- data Zatrudnienia
+- data Zakonczenia Pracy
+- przypisane Zadania 
 
 **Kierownictwo** *extends: Ludzie*:
 - przypisaneProjekty
@@ -78,6 +80,25 @@
 - Wyświetl projekty(przypisane do pracownika)
 - Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )
 - Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)
+
+**Files:**
+- nazwa **(Enum: *Folders*)**
+- sciezka
+***Metody***
+- Inicjalizuj projekt
+- Otworz plik
+- Utworz plik
+- Dodaj do pliku
+- Usun z pliku
+- Utworz Log per Zadanie
+
+###### ENUM: **Folders**
+1. Pracownicy      - Em
+2. Projekty        - Pr
+3. Zadania         - Qu
+4. Log             - Lo
+5. Log per Zadanie - LoG
+
 
 
 ## Licencja

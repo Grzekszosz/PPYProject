@@ -1,8 +1,7 @@
 import unittest
 
-
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
+class TestMain(unittest.TestCase):
+    def test_menu(self):
         self.assertEqual(True, False)  # add assertion here
 
 
