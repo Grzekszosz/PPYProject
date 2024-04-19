@@ -1,30 +1,39 @@
-import pathlib
-import os
-import EFile
-from enum import *
+from .EFile import *
+from utils.printScripts import *
+
+
+# wynieść do innego pliku do utils
+
+map_content = {
+    EFile.USERS.name: login_content()
+}
 
 
 def initialize_files():
-    for i, e in enumerate(EFile.value):
-        os.makedirs(e, exist_ok=True)
-    
-    #os.makedirs(File., exist_ok=True)
-    curses=FileHelper.pat
-    current_directory = os.path.join(os.getcwd(),'src/files')
-    os.makedirs('src/files/projects',exist_ok=True)
-    src_ok = False
-    print("dupa: ",current_directory)
-    dirs = [d for d in pathlib.Path(current_directory).iterdir() if d.is_file()]
-#    dirs.
-   # os.
-    for i in dirs:
-        print(i.name)
-            #current_directory = os.path.join(current_directory, 'src')
+    for i in EFile:
+        if i.value.name.rfind('.txt').__eq__(-1):
+            os.makedirs(i.value, exist_ok=True)
+        else:
+            try:
+                open(i.value, 'x')
+                complete = FileHelper(i.name, i.value)
+                complete.write_to_file(map_content.get(i.name))
+                del complete
+            except FileExistsError:
+                pass
+
 
 class FileHelper:
     name = ''
-    pat = os.path.join(os.getcwd(), 'src/files')
+    pat = ''
 
     def __init__(self, name, pat):
         self.name = name
         self.pat = pat
+
+    def __del__(self):
+        pass
+
+    def write_to_file(self, content):
+        with open(self.pat, 'a') as file:
+            file.writelines(content)

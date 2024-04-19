@@ -3,8 +3,9 @@ from pathlib import Path
 
 
 class EFile(Enum):
-    USERS = Path('login.txt')
+    FILES = Path('src/files')
     PROJECTS = Path('src/files/projects')
     TASKS = Path('src/files/tasks')
     LOGS = Path('src/files/logs')
+    USERS = Path('src/files/login.txt')
 

@@ -58,6 +58,7 @@
 - id
 - imie
 - nazwisko
+- login
 - hasło
 - stanowisko
 - data Zatrudnienia
