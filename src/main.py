@@ -2,9 +2,9 @@
 import sys
 import readchar
 # from pynput.keyboard import Listener
-# from utils.keyboar1d import on_press
+from utils.auth import *
 from utils.printScripts import *
-from modules.FileHelper import *
+from utils.initializeFiles import *
 
 
 def main():
@@ -18,6 +18,8 @@ def main():
             case '0':
                 break
             case '1':
+                login()
+                #tu będe tworzyć obiekt zwrócony przez funkcje auth
                 pass
             case _:
                 cls()

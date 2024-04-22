@@ -61,8 +61,6 @@
 - login
 - hasło
 - stanowisko
-- data Zatrudnienia
-- data Zakonczenia Pracy
 - przypisane Zadania 
 
 **Kierownictwo** *extends: Ludzie*:
