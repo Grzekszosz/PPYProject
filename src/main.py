@@ -20,7 +20,8 @@ def main():
                 if idLoged != -1:
                     loged=auth.make(idLoged)
                     welcome(loged)
-#TODO jak się zaloguje to później musze wyzerować loged!<- wylogować
+                else:
+                    loged=None
             case _:
                 cls()
         try:

@@ -1,5 +1,5 @@
 import os
-
+from PPYProject.src.modules.EFile import *
 
 class FileHelper:
     name = ''
@@ -29,7 +29,21 @@ class FileHelper:
         return ret
 
     def listFolder(self):
-        print("Dupa")
         ret = os.listdir(self.pat)
-        print(ret)
         return ret
+
+    def find(self,Id,sufix=None):
+        lines=self.read_lines()
+        if self.name==EFile.USERS.name:
+            for line in lines:
+                content=line.split(';')
+                if sufix =='Project Manager':
+                    if content[0].__contains__(Id) and content[3]==sufix :
+                        return True
+                else:
+                    if content[0].__contains__(Id):
+                        return True
+        if self.name==EFile.TASKS.name:
+            pass
+        return False
+

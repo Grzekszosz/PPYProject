@@ -10,20 +10,23 @@ class Manager(Ludzie):
 
     def __init__(self,id,imie,nazwisko,stanowisko):
         super().__init__(id,imie,nazwisko,stanowisko)
-     #   pass ###TODO suck mine powinien opdpalac sie w konstruktorze
 
     def suck_Mine(self):
         file=FileHelper(EFile.PROJECTS.name,EFile.PROJECTS.value)
-        pull(file)
+        projList=pull(file)
+        for proj in projList:
+          #  print(self.id,proj.name,proj.master.imie,proj.description)
+            if proj.master.id==self.id:
+                self.projectList.append(proj)
+
         ###TODO
         ###TODO dostaje liste obiektow projetkow
         ### swoje, wkładam do projectList
-        pass
     def get_in(self):
+        self.suck_Mine()
         while True:
             manager_menu()
             chose = readchar.readchar()
-            print(f"{chose}")
             match chose:
                 case '0':
                     break
@@ -35,9 +38,11 @@ class Manager(Ludzie):
              #           welcome(loged)
                     pass
                 case '2':
-                    self.suck_Mine()
+                    d=self.projectList[0]
+                    for i in self.projectList:
+                        print(i.toString())
                     #Wyświetl projekty()
-                    break
+                    pass
                 case '3':
 
                     break
