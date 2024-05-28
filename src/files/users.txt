@@ -1,3 +1,4 @@
-1;Grzegorz;Orłowski;Project Manager
-2;Nowak;Daniel;Dev
-3;Kowalski;Jan;Dev
+1;Grzegorz;Orlowski;Project Manager
+2;Daniel;Dudkowski;Dev
+3;Jan;Nowak;Dev
+Dupa

@@ -1,3 +1,6 @@
+import os
+
+
 class FileHelper:
     name = ''
     pat = ''
@@ -12,7 +15,19 @@ class FileHelper:
     def write_to_file(self, content):
         with open(self.pat, 'a') as file:
             file.writelines(content)
+
     def read_file_all(self):
         with open(self.pat, 'r') as file:
             return file.read()
 
+    def read_lines(self):
+        ret = []
+        with open(self.pat, 'r') as file:
+            lines = file.readlines()
+            for line in lines:
+                ret.append(line.strip())
+        return ret
+
+    def listFolder(self):
+        ret = os.listdir(self.pat)
+        return ret

@@ -31,9 +31,9 @@ robie zmiane
 - podpięte zadania
 - przypisane osoby
 - osoba prowadząca
-- liczba zaplanowanych godzin(**calculate:** *suma godzin z zadań*)
-- liczba poświęconych godzin(**calculate:** *suma godzin z logow podpiętych zadań*)
-- postęp (**calculate:** *suma zaplanowanych ukończonych godzin z zadań(ukończone) / suma godzin z zadań zaplanowanych(w toku, otwarte, blokada)*)
+- liczba zaplanowanych godzin(**calculate:** *suma godzin z zadań*) **
+- liczba poświęconych godzin(**calculate:** *suma godzin z logow podpiętych zadań*)***
+- postęp (**calculate:** *suma zaplanowanych ukończonych godzin z zadań(ukończone) / suma godzin z zadań zaplanowanych(w toku, otwarte, blokada)*)****
 
 
 **Zadania** *extends: Misja*:

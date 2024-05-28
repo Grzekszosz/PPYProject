@@ -1,15 +1,18 @@
+import os
+
 from PPYProject.src.modules.EFile import *
 from PPYProject.src.modules.FileHelper import FileHelper
 from PPYProject.utils.printScripts import *
 
 map_content = {
-    EFile.USERS.name: login_content()
-
+    EFile.LOGIN.name: login_content(),
+    EFile.USERS.name: users_content()
 }
 
 
 def initialize_files():
     for i in EFile:
+
         if i.value.name.rfind('.txt').__eq__(-1):
             os.makedirs(i.value, exist_ok=True)
         else:
