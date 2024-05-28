@@ -29,5 +29,7 @@ class FileHelper:
         return ret
 
     def listFolder(self):
+        print("Dupa")
         ret = os.listdir(self.pat)
+        print(ret)
         return ret

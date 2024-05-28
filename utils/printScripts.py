@@ -38,7 +38,7 @@ def welcome(lud):
 
 
 def manager_menu():
-    return (
+    print(
         "[1] ~Wyświetl zadania(w Jag.statusu, priorytetu, terminów, ludzi)\n",
         "[2] ~Wyświetl projekty(wg.statusu, priorytetu, terminów)\n",
         "[3] ~Zarządzanie zadaniem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)\n",
@@ -49,7 +49,7 @@ def manager_menu():
 
 
 def worker_menu():
-    return (
+    print(
         "[1] ~Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)\n",
         "[2] ~Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )\n",
         "[3] ~Wyświetl projekty(przypisane do pracownika)\n",

@@ -20,7 +20,7 @@ def main():
                 if idLoged != -1:
                     loged=auth.make(idLoged)
                     welcome(loged)
-                pass
+#TODO jak się zaloguje to później musze wyzerować loged!<- wylogować
             case _:
                 cls()
         try:
@@ -30,7 +30,7 @@ def main():
                 continue
         except NameError:
             print(print("Nie poprawne kredki"))
-
+        print("dupa")
         loged.get_in()
 
 

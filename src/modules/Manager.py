@@ -2,22 +2,26 @@ import readchar
 
 from modules.Ludzie import Ludzie
 from PPYProject.utils.printScripts import *
-
+from PPYProject.utils.pullContent import *
+from PPYProject.src.modules.FileHelper import *
+from PPYProject.src.modules.EFile import *
 class Manager(Ludzie):
     projectList=[]
 
-    def __init__(self):
-        pass ###TODO suck mine powinien opdpalac sie w konstruktorze
+    def __init__(self,id,imie,nazwisko,stanowisko):
+        super().__init__(id,imie,nazwisko,stanowisko)
+     #   pass ###TODO suck mine powinien opdpalac sie w konstruktorze
 
     def suck_Mine(self):
+        file=FileHelper(EFile.PROJECTS.name,EFile.PROJECTS.value)
+        pull(file)
         ###TODO
         ###TODO dostaje liste obiektow projetkow
         ### swoje, wkładam do projectList
         pass
     def get_in(self):
-
         while True:
-            print(manager_menu)
+            manager_menu()
             chose = readchar.readchar()
             print(f"{chose}")
             match chose:
@@ -31,6 +35,7 @@ class Manager(Ludzie):
              #           welcome(loged)
                     pass
                 case '2':
+                    self.suck_Mine()
                     #Wyświetl projekty()
                     break
                 case '3':
