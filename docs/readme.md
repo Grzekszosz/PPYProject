@@ -19,7 +19,7 @@
 9. Dodawanie logow do zadan od pracownikow wraz z czasem przeznaczonym
 10. Wykorzystanie plików i folderów w formie 'bazy'
 ### Opis Klas
-
+robie zmiane 
 **Misja**:
 - id(*unikalny*)
 - nazwa

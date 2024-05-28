@@ -1,5 +1,3 @@
-from pynput import keyboard
-
 captured_keys = []
 def on_press(key):
     try:

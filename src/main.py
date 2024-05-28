@@ -1,11 +1,9 @@
 # python -m src.main
-import sys
 import readchar
 # from pynput.keyboard import Listener
-from utils.auth import *
-from utils.printScripts import *
-from utils.initializeFiles import *
-
+from PPYProject.utils.initializeFiles import *
+from PPYProject.utils.printScripts import *
+from PPYProject.utils import auth
 
 def main():
     initialize_files()
@@ -18,7 +16,7 @@ def main():
             case '0':
                 break
             case '1':
-                login()
+                auth.login()
                 #tu będe tworzyć obiekt zwrócony przez funkcje auth
                 pass
             case _:

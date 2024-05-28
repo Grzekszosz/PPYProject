@@ -1,5 +1,5 @@
-from src.modules.EFile import *
-from src.modules.FileHelper import *
+from PPYProject.src.modules.EFile import *
+from PPYProject.src.modules.FileHelper import *
 
 
 def login():
@@ -16,5 +16,6 @@ def login():
                 print('zalogowano')
             else:
                 print('eee')
+
 
 

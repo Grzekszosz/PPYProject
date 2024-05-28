@@ -1,9 +1,10 @@
-from src.modules.EFile import *
-from utils.printScripts import *
-from src.modules.FileHelper import FileHelper
+from PPYProject.src.modules.EFile import *
+from PPYProject.src.modules.FileHelper import FileHelper
+from PPYProject.utils.printScripts import *
 
 map_content = {
     EFile.USERS.name: login_content()
+
 }
 
 
