@@ -43,7 +43,18 @@ class FileHelper:
                 else:
                     if content[0].__contains__(Id):
                         return True
-        if self.name==EFile.TASKS.name:
-            pass
+        if str(self.pat).startswith(str(EFile.PROJECTS.value)):
+            tasks=lines[5].split(',')
+            if tasks.__contains__(Id):
+                return True
         return False
-
+    def lastId(name,pat):
+        file=FileHelper(name,pat)
+        max=0
+        if(file.name==EFile.TASKS.name):
+            listTasks=file.listFolder()
+            for i in listTasks:
+                id=i.removesuffix('.txt')
+                if max<int(id):
+                    max=id
+        return max

@@ -17,7 +17,11 @@ class Project(Quest):
         self.tasks = []
 
     def toString(self):
-        print("Nazwa projektu: "+self.name+'\n'+"Opis projektu: "+self.description+'\n'+"Czas rozpoczęcia: "+self.beginDate+'\n'+"Czas zakonczenia: "+self.endDate+'\n'+"Wlasciciel projektu: "+self.master.imie+' '+self.master.nazwisko+'\n'+"Liczba taskow: "+str(len(self.tasks))+'\n'+"Liczba osob: "+str(len(self.pepole))+'\n')
+        print("Nazwa projektu: "+self.name+'\n'+"Opis projektu: "
+              +self.description+'\n'+"Czas rozpoczęcia: "+self.beginDate+
+              '\n'+"Czas zakonczenia: "+self.endDate+'\n'+"Wlasciciel projektu: "
+              +self.master.imie+' '+self.master.nazwisko+'\n'+"Liczba taskow: "
+              +str(len(self.tasks))+'\n'+"Liczba osob: "+str(len(self.pepole))+'\n')
 
     def initializeMaster(self,idMaster):
         file=FileHelper(EFile.USERS.name,EFile.USERS.value)
@@ -25,7 +29,7 @@ class Project(Quest):
             self.master=auth.make(idMaster)
         else:
             print("Nie udało się zmapować kierownika projektu do projektu", self.name)
-        pass
+
     def initializeTasks(self,idsTasks):
         list=os.listdir(EFile.TASKS.value)
         for element in list:

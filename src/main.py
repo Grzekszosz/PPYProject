@@ -19,7 +19,7 @@ def main():
                 idLoged=auth.login()
                 if idLoged != -1:
                     loged=auth.make(idLoged)
-                    welcome(loged)
+
                 else:
                     loged=None
             case _:
@@ -31,7 +31,8 @@ def main():
                 continue
         except NameError:
             print(print("Nie poprawne kredki"))
-        print("dupa")
+        cls()
+        welcome(loged)
         loged.get_in()
 
 

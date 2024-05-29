@@ -3,7 +3,7 @@ import os
 ###TODO teksty zagniezdzajace menu dla pracownika i menagera
 
 def cls():
-    os.system("cls" if os.name == "nt" else "clear")
+    os.system("cls")
 
 
 def menu_login():
@@ -31,16 +31,16 @@ def users_content():
 
 def welcome(lud):
     cls()
-    if lud.stanowisko == 'Project.py Manager':
-        print("Witamy Pana {} {} MENADŻERA: ".format(lud.imie, lud.nazwisko))
+    if lud.stanowisko == 'Project Manager':
+        print("\t\t\tWitamy Pana {} {} MENADŻERA\n".format(lud.imie, lud.nazwisko))
     else:
-        print("Dzień dobry {} {} {} : ".format(lud.imie, lud.nazwisko, lud.stanowisko))
+        print("\t\t\tDzień dobry {} {} {}  \n".format(lud.imie, lud.nazwisko, lud.stanowisko))
 
 
 def manager_menu():
     print(
         "[1] ~Wyświetl zadania(w Jag.statusu, priorytetu, terminów, ludzi)\n",
-        "[2] ~Wyświetl projekty(wg.statusu, priorytetu, terminów)\n",
+        "[2] ~Wyświetl projekty\n",
         "[3] ~Zarządzanie zadaniem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)\n",
         "[4] ~Zarządzanie projektem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)\n",
         "[5] ~Zarządzanie pracownikiem(dodaj, usuń, modyfikuj, przypiszDoZadania)\n",
@@ -54,4 +54,10 @@ def worker_menu():
         "[2] ~Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )\n",
         "[3] ~Wyświetl projekty(przypisane do pracownika)\n",
         "[0] ~Wyloguj"
+    )
+def manage_task():
+    print(
+        "[1] ~Dodaj zadanie\n"+
+        "[2] ~Modyfikuj swoje zadanie \n"+
+        "[0] ~Wyjdz"
     )
