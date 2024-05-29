@@ -48,16 +48,23 @@ def manager_menu():
     )
 
 
+
 def worker_menu():
     print(
-        "[1] ~Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)\n",
+        "\n[1] ~Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)\n",
         "[2] ~Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )\n",
         "[3] ~Wyświetl projekty(przypisane do pracownika)\n",
-        "[0] ~Wyloguj"
+        "[0] ~Wyloguj\n"
     )
 def manage_task():
     print(
-        "[1] ~Dodaj zadanie\n"+
+        "\n[1] ~Dodaj zadanie\n"+
         "[2] ~Modyfikuj swoje zadanie \n"+
-        "[0] ~Wyjdz"
+        "[0] ~Wyjdz\n"
     )
+def modify_task():
+    print("\n[1] ~Dodaj log\n"
+          "[2] ~Wylistuj logi\n"
+          "[3] ~Zmien status / priorytet\n"
+          "[4] ~Zmien wlasciciela\n"
+          "[0] ~Anuluj")

@@ -5,7 +5,6 @@ from PPYProject.src.modules.Manager import *
 from PPYProject.src.modules.Pracownik import *
 def login():
     username = input("Podaj login:\n")
-#TODO Można dodać hashowane hasełka Ale raczej jebać
     password = input("Podaj hasło:\n")
     file = FileHelper('login', EFile.LOGIN.value)
     lines = file.read_file_all().split('\n')
@@ -27,4 +26,4 @@ def make(id):
                 if content[3] == 'Project Manager':
                     return Manager(content[0],content[1],content[2],content[3])
                 else:
-                    return Pracownik(content[0],content[1],content[2],content[3])
+                     return Pracownik(content[0],content[1],content[2],content[3])

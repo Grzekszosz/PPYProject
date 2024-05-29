@@ -55,6 +55,6 @@ class FileHelper:
             listTasks=file.listFolder()
             for i in listTasks:
                 id=i.removesuffix('.txt')
-                if max<int(id):
+                if int(max)<int(id):
                     max=id
         return max

@@ -3,9 +3,13 @@
 ### TODO i ja zwracam
 import os
 
+from PPYProject.src.modules.Pracownik import *
 from PPYProject.src.modules.EFile import *
 from PPYProject.src.modules.FileHelper import *
 from PPYProject.src.modules.Project import *
+from modules.Manager import Manager
+
+
 #TODO to można by było zrobić bardziej dynamic
 def pull(file):
     lists=file.listFolder()
@@ -43,3 +47,14 @@ def getProject(id):
             project.initializeTasks(listFile[5])
             return project
     return None
+def getUsers():
+    ret=[]
+    file=FileHelper(EFile.USERS.name,EFile.USERS.value)
+    list = file.read_lines()
+    for user in list:
+        content=user.split(';')
+        if content[3] == 'Project Manager':
+            ret.append(Manager(content[0],content[1],content[2],content[3]))
+        else:
+            ret.append(Pracownik(content[0],content[1],content[2],content[3]))
+    return ret

@@ -4,6 +4,6 @@ Zrobić ćwiczenia z ABPD
 wysoki
 otwarte
 1
-None
+2,3,4
 None
 08.06.2024

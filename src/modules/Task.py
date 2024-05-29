@@ -23,6 +23,30 @@ class Task(Quest):
         self.logs = []
         self.project = None
 
+    def logsIds(self):
+        logId=''
+        file=FileHelper(EFile.LOGS.name,EFile.LOGS.value)
+        logsList=file.listFolder()
+        for log in logsList:
+            logFile=FileHelper(log,EFile.LOGS.value/log)
+            contentLog=logFile.read_lines()
+            if contentLog[0]==str(self.id):
+                logId=logId+log.removesuffix('txt')+','
+        logId.rstrip(',')
+        return logId
+
+    def getTask(self):
+        log=self.logsIds()
+        return (str(self.name)+'\n'+
+                self.project.id+'\n'+
+                self.description+'\n'+
+                self.pirority+'\n'+
+                self.status+'\n'+
+                self.owner.id+'\n'+
+                log,'\n'+
+                self.beginDate+'\n'+
+                self.endDate)
+
     def toString(self):
         print("\n\n"+
                "Id: "+self.id+'\n'+
@@ -45,7 +69,7 @@ class Task(Quest):
                     userFile=FileHelper(EFile.USERS.name,EFile.USERS.value)
                     if userFile.find(lines[2])==True:
                         log.owner=auth.make(lines[2])
-                    log.Task=self
+                    log.task=self
                     self.logs.append(log)
 
     def initializeOwner(self, idOwner):
@@ -59,4 +83,3 @@ class Task(Quest):
             file = FileHelper(Proj,EFile.PROJECTS.value/Proj)
             if file.find(idTask):
                 self.project=pullContent.getProject(idTask)
-                print("Znaleziono Projekt Taska",self.project.name)

@@ -5,13 +5,17 @@ from PPYProject.utils.printScripts import *
 from PPYProject.utils.pullContent import *
 from PPYProject.src.modules.FileHelper import *
 from PPYProject.src.modules.EFile import *
+from PPYProject.src.modules.Status import *
+from PPYProject.src.modules.Priority import *
 class Manager(Ludzie):
-    projectList=[]
-    taskList=[]
+    projectList = []
+    taskList = []
     def __init__(self,id,imie,nazwisko,stanowisko):
         super().__init__(id,imie,nazwisko,stanowisko)
 
     def suck_Mine(self):
+        self.projectList.clear()
+        self.taskList.clear()
         file=FileHelper(EFile.PROJECTS.name,EFile.PROJECTS.value)
         projList=pull(file)
         for proj in projList:
@@ -33,7 +37,6 @@ class Manager(Ludzie):
                 case '0':
                     break
                 case '1':
-#TODO "[1] ~Wyświetl zadania(w Jag.statusu, priorytetu, terminów, ludzi)\n",
                     cls()
                     for i in self.taskList:
                         i.toString()
@@ -49,25 +52,145 @@ class Manager(Ludzie):
                     choseTask=readchar.readchar()
                     match choseTask:
                         case '0':
-                            break
+                            pass
                         case '1':
-                            lastTaskId=0
-                            print(FileHelper.lastId(EFile.TASKS.name,EFile.TASKS.value))
+                            cls()
+                            goodChar = True
+    #TODO lastid poprawic tu tez mozna obiekt ogarnac kolejny, hi hi
+                            FileHelper.lastId(EFile.TASKS.name,EFile.TASKS.value)
+                            task = Task(int(FileHelper.lastId(EFile.TASKS.name,EFile.TASKS.value))+1,
+                                        input("Podaj nazwe zadania: "),input("Podaj opis zadania: "),
+                                        input("Podaj date rozpoczęcia: "),input("Podaj date zakończenia: "),
+                                        '','')
+                            Status.print_all_values()
+                            choseStatus = readchar.readchar()
+                            match choseStatus:
+                                case '0':
+                                    pass
+                                case '1':
+                                    task.status=Status.OPEN.value
+                                case '2':
+                                    task.status=Status.INPROGRES.value
+                                case '3':
+                                    task.status=Status.CLOSED.value
+                                case '4':
+                                    task.status=Status.BLOCKED.value
+                                case _:
+                                    pass
+                            Priority.print_all_values()
+                            chosePriority=readchar.readchar()
+                            match chosePriority:
+                                case '0':
+                                    pass
+                                case '1':
+                                    task.pirority=Priority.VERYLOW.value
+                                case '2':
+                                    task.pirority=Priority.LOW.value
+                                case '3':
+                                    task.pirority=Priority.NORMAL.value
+                                case '4':
+                                    task.pirority=Priority.HIGH.value
+                                case '5':
+                                    task.pirority=Priority.VERYHIGH.value
+                                case _:
+                                    pass
+                            users = getUsers()
+                            while goodChar:
+                                print("Wybierz osobę którą chcesz przypisać: ")
+                                for user in users:
+                                    print('[' + user.id + '] ' + user.imie + ' ' + user.nazwisko)
+                                choseUser = input()
+                                for user in users:
+                                    if user.id==choseUser:
+                                        task.owner=user
+                                        goodChar=False
+                                    else:
+                                        cls()
 
-                           # task = Task(lastTaskId,input("Podaj nazwe zadania: "),input("Podaj opis zadania: "),input("Podaj date rozpoczęcia: "),input("Podaj date zakończenia: "),'','')
-
-                           # self.taskList.append(task)
-                            break
+                            goodChar=True
+                            projects = pull(FileHelper(EFile.PROJECTS.name, EFile.PROJECTS.value))
+                            while goodChar:
+                                print("\nWybierz projekt który chcesz przypisać: \n")
+                                for project in projects:
+                                    print("[" + project.id + "] " + project.name + " " + project.description)
+                                choseProject=input()
+                                for project in projects:
+                                    if project.id == choseProject:
+                                        task.project=project
+                                        goodChar=False
+                                    else:
+                                        cls()
+                            goodChar=True
+                            print("\n Dodano zadanie [{}] {} dla {} {} w projekcie {} {}:"
+                                  .format(task.id,task.name,task.owner.imie, task.owner.nazwisko, task.project.name, task.project.description))
+                            fileName=str(task.id)+".txt"
+                            open(EFile.TASKS.value/fileName,'x')
+                            file=FileHelper(fileName,EFile.TASKS.value/fileName)
+                            file.write_to_file(task.getTask())
+                            self.suck_Mine()
                         case '2':
-                            #Modyfikacja zadania
-                            break
+                            cls()
+                            char=''
+                            goodChar = True
+                            listId = []
+                            changeTask=None
+                            while goodChar:
+                                for i in self.taskList:
+                                    print("Wybierz zadanie:\n"
+                                       '[',i.id,'] | ',i.name,' | ',i.description,' | ',i.pirority,' | '
+                                      ,i.status,' | ',i.owner.imie,' ',i.owner.nazwisko,' | ',i.project.name,'\n')
+                                    listId.append(i.id)
+                                print("[0] Anluj")
+                                char=input()
+                                if listId.__contains__(char):
+                                    for taskE in self.taskList:
+                                        if taskE.id == char:
+                                            changeTask = taskE
+                                    goodChar = False
+                                if char=='0':
+                                    break
+                                else:
+                                    cls()
+                            goodChar=True
+                            while goodChar:
+                                modify_task()
+                                char_modify=readchar.readchar()
+                                match char_modify:
+                                    case '1':
+                                        #addLog()
+                                        pass
+                                    case '2':
+                                        cls()
+                                        for log in changeTask.logs:
+                                            log.toString()
+                                        #listLog()
+
+
+                                    case '3':
+                                        #zmiana statusu
+                                        pass
+                                    case '4':
+                                        #wybranie nowego usera
+                                        pass
+                                    case '0':
+                                        break
+                                    case _:
+                                        cls()
+
+
+
+
+
+
+
+
 #TODO [3] ~Zarządzanie zadaniem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)
-                    break
+
                 case '4':
 #TODO [4] ~Zarządzanie projektem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)\n",
                     break
                 case '5':
-#TODO [5] ~Zarządzanie pracownikiem(dodaj, usuń, modyfikuj, przypiszDoZadania)\n",
+#TODO [5] ~Zarządzanie pracownikiem(dodaj, usuń)\n",
                     break
                 case _:
                     cls()

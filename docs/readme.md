@@ -9,7 +9,7 @@
 ### Wymagania:
 
 1. Tworzenie nowych projektów z opisem i datami rozpoczęcia i zakończenia.
-2. Dodawanie zadań do projektów z szczegółami takimi jak opis, priorytet, terminy, osoba odpowiedzialna, osoba przydzielona
+2. Dodawanie zadań do projektów z szczegółami takimi jak opis, priorytet, terminy, osoba odpowiedzialna
 3. Wyswietlanie listy projektów i zadań.
 4. Edycja i usuwanie projektów i zadań.
 5. Filtracja projektów/zadań według statusu, priorytetu, terminów.
@@ -92,11 +92,11 @@ robie zmiane
 - Utworz Log per Zadanie
 
 ###### ENUM: **Folders**
-1. Pracownicy      - Em
-2. Projekty        - Pr
-3. Zadania         - Qu
-4. Log             - Lo
-5. Log per Zadanie - LoG
+1. Pracownicy      
+2. Projekty        
+3. Zadania         
+4. Log             
+
 
 
 
