@@ -1,12 +1,12 @@
+import datetime
 import readchar
-
-from modules.Ludzie import Ludzie
 from PPYProject.utils.printScripts import *
 from PPYProject.utils.pullContent import *
 from PPYProject.src.modules.FileHelper import *
 from PPYProject.src.modules.EFile import *
 from PPYProject.src.modules.Status import *
 from PPYProject.src.modules.Priority import *
+from PPYProject.src.modules.Log import *
 class Manager(Ludzie):
     projectList = []
     taskList = []
@@ -48,7 +48,7 @@ class Manager(Ludzie):
                     pass
                 case '3':
                     cls()
-                    manage_task()
+                    print_manage_task()
                     choseTask=readchar.readchar()
                     match choseTask:
                         case '0':
@@ -56,14 +56,14 @@ class Manager(Ludzie):
                         case '1':
                             cls()
                             goodChar = True
-    #TODO lastid poprawic tu tez mozna obiekt ogarnac kolejny, hi hi
-                            FileHelper.lastId(EFile.TASKS.name,EFile.TASKS.value)
-                            task = Task(int(FileHelper.lastId(EFile.TASKS.name,EFile.TASKS.value))+1,
+                            fileId=FileHelper(EFile.TASKS.name,EFile.TASKS.value)
+                            task = Task(int(fileId.lastId())+1,
                                         input("Podaj nazwe zadania: "),input("Podaj opis zadania: "),
                                         input("Podaj date rozpoczęcia: "),input("Podaj date zakończenia: "),
                                         '','')
                             Status.print_all_values()
                             choseStatus = readchar.readchar()
+                            #TODO naprawić wciąganie danych by wybrana wartość była wszędzie
                             match choseStatus:
                                 case '0':
                                     pass
@@ -126,7 +126,7 @@ class Manager(Ludzie):
                             fileName=str(task.id)+".txt"
                             open(EFile.TASKS.value/fileName,'x')
                             file=FileHelper(fileName,EFile.TASKS.value/fileName)
-                            file.write_to_file(task.getTask())
+                            file.write_to_file(task.getTask(),'a')
                             self.suck_Mine()
                         case '2':
                             cls()
@@ -146,36 +146,15 @@ class Manager(Ludzie):
                                     for taskE in self.taskList:
                                         if taskE.id == char:
                                             changeTask = taskE
+                                            changeTask.manageTask()
                                     goodChar = False
+
                                 if char=='0':
                                     break
                                 else:
                                     cls()
-                            goodChar=True
-                            while goodChar:
-                                modify_task()
-                                char_modify=readchar.readchar()
-                                match char_modify:
-                                    case '1':
-                                        #addLog()
-                                        pass
-                                    case '2':
-                                        cls()
-                                        for log in changeTask.logs:
-                                            log.toString()
-                                        #listLog()
 
 
-                                    case '3':
-                                        #zmiana statusu
-                                        pass
-                                    case '4':
-                                        #wybranie nowego usera
-                                        pass
-                                    case '0':
-                                        break
-                                    case _:
-                                        cls()
 
 
 

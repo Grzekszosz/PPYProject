@@ -56,13 +56,13 @@ def worker_menu():
         "[3] ~Wyświetl projekty(przypisane do pracownika)\n",
         "[0] ~Wyloguj\n"
     )
-def manage_task():
+def print_manage_task():
     print(
         "\n[1] ~Dodaj zadanie\n"+
         "[2] ~Modyfikuj swoje zadanie \n"+
         "[0] ~Wyjdz\n"
     )
-def modify_task():
+def print_modify_task():
     print("\n[1] ~Dodaj log\n"
           "[2] ~Wylistuj logi\n"
           "[3] ~Zmien status / priorytet\n"

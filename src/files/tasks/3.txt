@@ -4,6 +4,6 @@ ProjektMasy
 bardzowysoki
 otwarte
 1
-None
+1
 None
 08.06.2024

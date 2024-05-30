@@ -12,8 +12,8 @@ class FileHelper:
     def __del__(self):
         pass
 
-    def write_to_file(self, content):
-        with open(self.pat, 'a') as file:
+    def write_to_file(self, content, parameter='a'):
+        with open(self.pat, parameter) as file:
             file.writelines(content)
 
     def read_file_all(self):
@@ -48,11 +48,10 @@ class FileHelper:
             if tasks.__contains__(Id):
                 return True
         return False
-    def lastId(name,pat):
-        file=FileHelper(name,pat)
-        max=0
-        if(file.name==EFile.TASKS.name):
-            listTasks=file.listFolder()
+    def lastId(self):
+        max = 0
+        if self.name==EFile.TASKS.name or self.name == EFile.LOGS.name:
+            listTasks=self.listFolder()
             for i in listTasks:
                 id=i.removesuffix('.txt')
                 if int(max)<int(id):

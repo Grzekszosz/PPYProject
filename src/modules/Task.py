@@ -1,10 +1,14 @@
 import os
 from PPYProject.src.modules.EFile import *
+import readchar
 from PPYProject.src.modules.FileHelper import *
 from modules.Quest import Quest
 from modules.Log import Log
 from PPYProject.utils import auth
 from PPYProject.utils import pullContent
+from PPYProject.utils.printScripts import *
+from PPYProject.src.modules.Status import *
+from PPYProject.src.modules.Priority import *
 # priorytet(*bardzoniski, niski, normalny, wysoki, bardzowysoki *)
 #(*otwarte, wtoku, zamknięte, blokada *)
 class Task(Quest):
@@ -65,7 +69,7 @@ class Task(Quest):
                 if idElement == id:
                     file=FileHelper(id,EFile.LOGS.value/element)
                     lines=file.read_lines()
-                    log=Log(lines[0],lines[1],lines[3],lines[4])
+                    log=Log(idElement,lines[1],lines[3],lines[4])
                     userFile=FileHelper(EFile.USERS.name,EFile.USERS.value)
                     if userFile.find(lines[2])==True:
                         log.owner=auth.make(lines[2])
@@ -83,3 +87,53 @@ class Task(Quest):
             file = FileHelper(Proj,EFile.PROJECTS.value/Proj)
             if file.find(idTask):
                 self.project=pullContent.getProject(idTask)
+
+    def listLogs(self):
+        for log in self.logs:
+            log.toString()
+
+    def changeStatus(self):
+        goodChar = True
+        while goodChar:
+            print("Obecny status: ", self.status,"\nWybierz status: ⚡\n")
+            Status.print_all_values()
+            choseStatus = readchar.readchar()
+            if Status.number_of_values().__contains__(choseStatus):
+                goodChar = False
+            match choseStatus:
+                case '1':
+                    self.status = Status.OPEN.value
+                case '2':
+                    self.status = Status.INPROGRES.value
+                case '3':
+                    self.status = Status.CLOSED.value
+                case '4':
+                    self.status = Status.BLOCKED.value
+                case _:
+                    cls()
+    def changePriori(self):
+        goodChar = True
+        print(" Obecny priorytet:", self.pirority, "\nWybierz Priorytet: ⚡\n")
+        self.pirority=Priority.get_priori()
+    def manageTask(self):
+        goodChar = True
+        while goodChar:
+            print_modify_task()
+            char_modify = readchar.readchar()
+            match char_modify:
+                case '1':
+                    Log.addLog(self,self.owner)
+                case '2':
+                    cls()
+                    self.listLogs()
+                case '3':
+                    self.changeStatus()
+                    self.changePriori()
+                    cls()
+                case '4':
+                    # wybranie nowego usera
+                    pass
+                case '0':
+                    break
+                case _:
+                    cls()

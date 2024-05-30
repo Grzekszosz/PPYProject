@@ -4,14 +4,13 @@ import readchar
 from PPYProject.utils.initializeFiles import *
 from PPYProject.utils.printScripts import *
 from PPYProject.utils import auth
-
+#TODO Błyskawice na szybkim wpisie: ⚡
 def main():
     initialize_files()
     loged = None
     while True:
         menu_login()
         chose = readchar.readchar()
-        print(f"{chose}")
         match chose:
             case '0':
                 break
