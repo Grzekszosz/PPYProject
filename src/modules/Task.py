@@ -27,26 +27,17 @@ class Task(Quest):
         self.logs = []
         self.project = None
 
-    def logsIds(self):
-        logId=''
-        file=FileHelper(EFile.LOGS.name,EFile.LOGS.value)
-        logsList=file.listFolder()
-        for log in logsList:
-            logFile=FileHelper(log,EFile.LOGS.value/log)
-            contentLog=logFile.read_lines()
-            if contentLog[0]==str(self.id):
-                logId=logId+log.removesuffix('txt')+','
-        logId.rstrip(',')
-        return logId
+
 
     def getTask(self):
-        log=self.logsIds()
+        log=pullContent.logsIds(self)
+
         return (str(self.name)+'\n'+
-                self.project.id+'\n'+
+                str(self.project.id)+'\n'+
                 self.description+'\n'+
                 self.pirority+'\n'+
                 self.status+'\n'+
-                self.owner.id+'\n'+
+                str(self.owner.id)+'\n'+
                 log,'\n'+
                 self.beginDate+'\n'+
                 self.endDate)
@@ -93,28 +84,15 @@ class Task(Quest):
             log.toString()
 
     def changeStatus(self):
-        goodChar = True
-        while goodChar:
-            print("Obecny status: ", self.status,"\nWybierz status: ⚡\n")
-            Status.print_all_values()
-            choseStatus = readchar.readchar()
-            if Status.number_of_values().__contains__(choseStatus):
-                goodChar = False
-            match choseStatus:
-                case '1':
-                    self.status = Status.OPEN.value
-                case '2':
-                    self.status = Status.INPROGRES.value
-                case '3':
-                    self.status = Status.CLOSED.value
-                case '4':
-                    self.status = Status.BLOCKED.value
-                case _:
-                    cls()
+        print("\nObecny status: ", self.status,"\nWybierz status: ")
+        status = Status.get_status()
+        if status!=None:
+            self.status=str(status)
     def changePriori(self):
-        goodChar = True
-        print(" Obecny priorytet:", self.pirority, "\nWybierz Priorytet: ⚡\n")
-        self.pirority=Priority.get_priori()
+        print("\nObecny priorytet:", self.pirority, "\nWybierz Priorytet: ")
+        priori=Priority.get_priori()
+        if priori !=None:
+            self.pirority = str(priori)
     def manageTask(self):
         goodChar = True
         while goodChar:
@@ -131,9 +109,35 @@ class Task(Quest):
                     self.changePriori()
                     cls()
                 case '4':
-                    # wybranie nowego usera
-                    pass
+                    self.owner=pullContent.getUser()
+                    break
                 case '0':
                     break
                 case _:
                     cls()
+    def writeMe(self):
+        fileName=str(self.id)+".txt"
+        file=FileHelper(fileName,EFile.TASKS.value/fileName)
+        file.write_to_file(self.getTask(),'w')
+
+    @staticmethod
+    def addTask(user):
+        goodChar = True
+        fileId = FileHelper(EFile.TASKS.name, EFile.TASKS.value)
+        task = Task(int(fileId.lastId()) + 1,
+                    input("Podaj nazwe zadania: "), input("Podaj opis zadania: "),
+                    input("Podaj date rozpoczęcia: "), input("Podaj date zakończenia: "),
+                    ' ', ' ')
+        task.changeStatus()
+        task.changePriori()
+        task.owner=pullContent.getUser()
+        task.project=pullContent.getProjectS(task)
+
+        print("\n Dodano zadanie [{}] {} dla {} {} w projekcie {} {}:"
+              .format(task.id, task.name, task.owner.imie, task.owner.nazwisko, task.project.name,
+                      task.project.description))
+        fileName = str(task.id) + ".txt"
+        open(EFile.TASKS.value / fileName, 'x')
+        file = FileHelper(fileName, EFile.TASKS.value / fileName)
+        file.write_to_file(task.getTask(), 'a')
+        return task

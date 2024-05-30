@@ -10,7 +10,7 @@ class Log:
         self.description=description
         self.workTime=workTime
     def toString(self):
-        print("["+str(self.id)+"] | Data: "+str(self.timestamp)+" | Godziny: "+self.workTime+" | Zadania: "
+        print("\n["+str(self.id)+"] | Data: "+str(self.timestamp)+" | Godziny: "+self.workTime+" | Zadania: "
         ""+self.task.name+"\n" +"Opis: "+self.description+"\n"+self.owner.imie+" "+self.owner.nazwisko+"\n")
 
     def getLog(self):

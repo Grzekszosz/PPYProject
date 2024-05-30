@@ -15,7 +15,7 @@ class Priority(Enum):
         # cls odnosi się do samej klasy EFile
         i=1
         for item in cls:
-            print("[",i,"] ~",item.value)
+            print("[",i,"] ⚡~",item.value)
             i+=1
         print("[0] ~Anuluj")
 
@@ -31,6 +31,7 @@ class Priority(Enum):
 
     @classmethod
     def get_priori(cls):
+        cls.print_all_values()
         goodChar =True
         while goodChar:
             readPriori=readchar.readchar()

@@ -14,7 +14,7 @@ class Status(Enum):
         # cls odnosi się do samej klasy EFile
         i=1
         for item in cls:
-            print("[",i,"] ~",item.value)
+            print("[",i,"] ⚡~",item.value)
             i+=1
         print("[0] ~Anuluj")
     @classmethod
@@ -27,7 +27,8 @@ class Status(Enum):
             i += 1
         return list
     @classmethod
-    def change_status(cls):
+    def get_status(cls):
+        cls.print_all_values()
         goodChar =True
         while goodChar:
             readStatus=readchar.readchar()

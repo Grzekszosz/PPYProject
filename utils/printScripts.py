@@ -9,8 +9,8 @@ def cls():
 def menu_login():
     print("\t\t\t\t\t***Stipant***\n"
           "Wybierz opcje:\n"
-          "\t[1] ~Zaloguj\n"
-          "\t[0] ~Wyjdź\n")
+          "\t[1] ⚡~Zaloguj\n"
+          "\t[0] ⚡~Wyjdź\n")
 
 
 def login_content():
@@ -39,32 +39,61 @@ def welcome(lud):
 
 def manager_menu():
     print(
-        "[1] ~Wyświetl zadania(w Jag.statusu, priorytetu, terminów, ludzi)\n",
-        "[2] ~Wyświetl projekty\n",
-        "[3] ~Zarządzanie zadaniem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)\n",
-        "[4] ~Zarządzanie projektem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)\n",
-        "[5] ~Zarządzanie pracownikiem(dodaj, usuń, modyfikuj, przypiszDoZadania)\n",
-        "[0] ~Wyloguj"
+        "[1] ⚡~Wyświetl swoje zadania\n",
+        "[2] ⚡~Wyświetl swoje projekty\n",
+        "[3] ⚡~Zarządzanie zadaniem(dodaj, modyfikuj, przypisz / utworzZadania)\n",
+        "[4] ⚡~Zarządzanie projektem(dodaj, modyfikuj, przypisz)\n",
+        "[5] ⚡~Zarządzanie pracownikiem(dodaj, usuń, modyfikuj, przypiszDoZadania)\n",
+        "[0] ⚡~Wyloguj"
     )
-
-
+def printManagmentProjects():
+    print(
+        "\n[1] ⚡~Listuj wszystkie projekty\n"
+        "[2] ⚡~Dodaj projekt\n"
+        "[3] ⚡~Zarządzaj projektem\n"
+        "[0] ⚡~Anuluj\n"
+    )
+def printManagmentProject():
+    print(
+        "\n[1] ⚡~Zmien odpowiedzialnego\n"
+        "[2] ⚡~Zmien daty\n"
+        "[3] ⚡~Dopisz pracownika\n"
+        "[4] ⚡~Usun pracownika\n"
+        "[5] ⚡~Pokaz zadania\n"
+        "[6] ⚡~Pokaz pracownikow projektu\n"
+    )
 
 def worker_menu():
     print(
-        "\n[1] ~Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)\n",
-        "[2] ~Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )\n",
-        "[3] ~Wyświetl projekty(przypisane do pracownika)\n",
-        "[0] ~Wyloguj\n"
+        "\n[1] ⚡~Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)\n",
+        "[2] ⚡~Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )\n",
+        "[3] ⚡~Wyświetl projekty(przypisane do pracownika)\n",
+        "[0] ⚡~Wyloguj\n"
     )
 def print_manage_task():
     print(
-        "\n[1] ~Dodaj zadanie\n"+
-        "[2] ~Modyfikuj swoje zadanie \n"+
-        "[0] ~Wyjdz\n"
+        "\n[1] ⚡~Dodaj zadanie\n"+
+        "[2] ⚡~Modyfikuj swoje zadanie \n"+
+        "[0] ⚡~Wyjdz\n"
     )
 def print_modify_task():
-    print("\n[1] ~Dodaj log\n"
-          "[2] ~Wylistuj logi\n"
-          "[3] ~Zmien status / priorytet\n"
-          "[4] ~Zmien wlasciciela\n"
-          "[0] ~Anuluj")
+    print("\n[1] ⚡~Dodaj log\n"
+          "[2] ⚡~Wylistuj logi\n"
+          "[3] ⚡~Zmien status / priorytet\n"
+          "[4] ⚡~Zmien wlasciciela\n"
+          "[0] ⚡~Anuluj")
+def print_manage_worker():
+    print("\n[1] ⚡~ Listuj pracownikow\n"
+          "[2] ⚡~Dodaj pracownika\n"
+          "[3] ⚡~Usun pracownika\n"
+          "[4] ⚡~Zarzadzaj pracownikiem\n"
+          "[0] ⚡~Anuluj")
+def print_modify_worker():
+    print("\n[1] ⚡~Zmien login\n"
+          "[2] ⚡~Zmien hasło\n"
+          "[3] ⚡~Zmien nazwisko\n"
+          "[0] ⚡~Anuluj")
+def worker_or_menago():
+    print("\n[1] ⚡~Pracownik\n"
+          "[2] ⚡~Manager\n"
+          "[0] ⚡~Anuluj")

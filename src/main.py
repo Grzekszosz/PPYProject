@@ -18,7 +18,6 @@ def main():
                 idLoged=auth.login()
                 if idLoged != -1:
                     loged=auth.make(idLoged)
-
                 else:
                     loged=None
             case _:

@@ -8,6 +8,7 @@ from PPYProject.src.modules.EFile import *
 from PPYProject.src.modules.FileHelper import *
 from PPYProject.src.modules.Project import *
 from modules.Manager import Manager
+from utils import printScripts
 
 
 #TODO to można by było zrobić bardziej dynamic
@@ -58,3 +59,69 @@ def getUsers():
         else:
             ret.append(Pracownik(content[0],content[1],content[2],content[3]))
     return ret
+
+def printUsers(users):
+    for user in users:
+        print('[' + user.id + '] ' + user.imie + ' ' + user.nazwisko)
+def getUser():
+    users=getUsers()
+    goodChar = True
+    while goodChar:
+        printUsers(users)
+        choseUser=input("Wybierz osobę którą chcesz przypisać: ")
+        for user in users:
+            if user.id == choseUser:
+                return user
+        printScripts.cls()
+
+def printProjects(projects):
+    for project in projects:
+        print("[" + project.id + "] " + project.name + " " + project.description)
+
+def logsIds(task):
+    logId=''
+    file=FileHelper(EFile.LOGS.name,EFile.LOGS.value)
+    logsList=file.listFolder()
+    for log in logsList:
+        logFile=FileHelper(log,EFile.LOGS.value/log)
+        contentLog=logFile.read_lines()
+        if contentLog[0]==str(task.id):
+            logId=logId+log.removesuffix('.txt')+','
+        logId.rstrip(',')
+    return logId
+
+def getProjectS(task):
+    goodChar=True
+    projects = pull(FileHelper(EFile.PROJECTS.name, EFile.PROJECTS.value))
+    Rproject=None
+    while goodChar:
+        print("\nWybierz projekt który chcesz przypisać: \n")
+        printProjects(projects)
+        choseProject = input()
+        for project in projects:
+            if project.id == choseProject:
+                Rproject = project
+                goodChar = False
+        printScripts.cls()
+
+    Rproject.tasks.append(task)
+    Rproject.writeMe()
+    return Rproject
+
+def lastProjectId():
+    file=FileHelper(EFile.PROJECTS.name,EFile.PROJECTS.value)
+    listProject=file.listFolder()
+    max=0
+    for project in listProject:
+        projectFile=FileHelper(project,EFile.PROJECTS.value/project)
+        content=projectFile.read_lines()
+        if int(max)<int(content[0]):
+            max=content[0]
+    return max
+def lastPepoleId():
+    max=0
+    users=getUsers()
+    for user in users:
+        if int(max)<int(user.id):
+            max=user.id
+    return max

@@ -1,6 +1,3 @@
-from PPYProject.src.modules.EFile import *
-from PPYProject.src.modules.FileHelper import *
-import PPYProject.src.modules
 from PPYProject.src.modules.Manager import *
 from PPYProject.src.modules.Pracownik import *
 def login():
