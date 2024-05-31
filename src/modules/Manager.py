@@ -1,9 +1,8 @@
 import datetime
 import readchar
+from modules.Ludzie import Ludzie
 
 from PPYProject.utils.pullContent import *
-
-from PPYProject.src.modules.Priority import *
 from PPYProject.src.modules.Log import *
 from PPYProject.src.modules.Pracownik import *
 class Manager(Ludzie):
@@ -11,6 +10,16 @@ class Manager(Ludzie):
     taskList = []
     def __init__(self,id,imie,nazwisko,stanowisko):
         super().__init__(id,imie,nazwisko,stanowisko)
+
+    @staticmethod
+    def addMenago():
+        from utils.pullContent import lastPepoleId
+        lastId=lastPepoleId()
+        lastId=int(lastId)+1
+        manager= Manager(lastId,input("Podaj imie: "),input("Podaj nazwisko: "),"Project manager")
+        manager.setLogin()
+        manager.setPassword()
+        manager.writeMe()
 
     def suck_Mine(self):
         self.projectList.clear()
@@ -35,28 +44,28 @@ class Manager(Ludzie):
             match chose:
                 case '0':
                     break
-                case '1':
+                case '1':#Listuje przypisane zadania
                     cls()
                     for i in self.taskList:
                         i.toString()
                     pass
-                case '2':
+                case '2':#Listuje przypisane projekty
                     cls()
                     for i in self.projectList:
                         print(i.toString())
                     pass
-                case '3':
+                case '3':#Modyfikuje przypisanym zadaniem
                     cls()
                     print_manage_task()
                     choseTask=readchar.readchar()
                     match choseTask:
                         case '0':
                             pass
-                        case '1':
+                        case '1': #Dodaje zadanie
                             cls()
                             self.taskList.append(Task.addTask(self))
                             self.suck_Mine()
-                        case '2':
+                        case '2':#Na podstawie wybranego zadania..
                             cls()
                             char=''
                             goodChar = True
@@ -74,7 +83,7 @@ class Manager(Ludzie):
                                     for taskE in self.taskList:
                                         if taskE.id == char:
                                             changeTask = taskE
-                                            changeTask.manageTask()
+                                            changeTask.manageTask() #.. Zarządza zadaniem
                                             changeTask.writeMe()
                                             self.suck_Mine()
                                     goodChar = False
@@ -82,11 +91,7 @@ class Manager(Ludzie):
                                     break
                                 else:
                                     cls()
-
-# [3] ~Zarządzanie zadaniem(dodaj, usuń, modyfikuj, przypisz / utworzZadania)
-
-                case '4':
-# [4] ~Zarządzanie projektem(dodaj,  modyfikuj, przypisz )\n",
+                case '4':#Zarządzanie projektem
                     file=FileHelper(EFile.PROJECTS.name,EFile.PROJECTS.value)
                     ProjList=pull(file)
                     goodChar = True
@@ -96,15 +101,15 @@ class Manager(Ludzie):
                     match switch:
                         case '0':
                             pass
-                        case '1':
+                        case '1':#Listuje przypisane projekty
                             for project in ProjList:
                                 project.toString()
-                        case '2':
+                        case '2':#Dodaje nowy projekt
                             project=Project.addProject()
                             project.writeMe()
                             self.suck_Mine()
                             goodChar = False
-                        case '3':
+                        case '3':#Na podstawie wybranego projektu..
                             listId=[]
                             listId.clear()
                             goodChar = True
@@ -116,7 +121,7 @@ class Manager(Ludzie):
                                 if listId.__contains__(char):
                                     for project in ProjList:
                                         if str(project.id)==char:
-                                            project.manageProject()
+                                            project.manageProject()#..Zarządza projektem
                                             project.writeMe()
                                             self.suck_Mine()
                                         goodChar = False
@@ -125,33 +130,59 @@ class Manager(Ludzie):
                                 else:
                                     cls()
 
-                case '5':
+                case '5':#Zarządznie pracownikami
+                    cls()
                     while True:
+                        print_manage_worker()
                         char =readchar.readchar()
                         match char:
                             case '0':
+                                cls()
                                 break
-                            case '1':#dodaj pracownika
+                            case '1':#Listuj pracownika
+                                print("Dupa")
+                                cls()
+                                printUsers(getUsers())
+                                continue
+                            case '2':#Dodaje pracownika
                                 while True:
+                                    cls()
                                     worker_or_menago()
-                                    chose=readchar.readchar()
-                                    if chose=='1':
+                                    chose = readchar.readchar()
+                                    if chose == '1':
                                         Pracownik.addWorker()
-                                    elif chose=='2':
-                                        pass
-                                    elif chose=='0':
+                                    elif chose == '2':
+                                        Manager.addMenago()
+                                    elif chose == '0':
+                                        cls()
                                         break
-                            case '2':
+                            case '3':#Zarządza pracownikiem
+                                while True:
+                                    cls()
+                                    print_modify_worker()
+                                    chose=readchar.readchar()
+                                    match chose:
+                                        case '0':
+                                            cls()
+                                            break
+                                        case '1':#Zmiana loginu
+                                            user=getUser()
+                                            user.setLogin()
+                                            user.overWriteMe()
+                                            break
+                                        case '2':#Zmiana hasla
+                                            user = getUser()
+                                            user.setPassword()
+                                            user.overWriteMe()
+                                            break
+                                        case '3':#Zmiana nazwiska
+                                            user = getUser()
+                                            user.setSurname()
+                                            user.overWriteMe()
+                                            break
                                 pass
-                                #Usun pracownika
-                            case '3':
-                                pass
-                                #zarzadzaj pracownikiem
                             case _:
                                 cls()
-
-
-#TODO [5] ~Zarządzanie pracownikiem(dodaj, usuń)\n",
-                    break
                 case _:
                     cls()
+        cls()

@@ -1,6 +1,6 @@
 import os
-###TODO skrypty dla projektow, logow, zadan,
-###TODO teksty zagniezdzajace menu dla pracownika i menagera
+#Paczka metod, drukujących, zwracających zawartości na wydruki do konsoli lub do pliku
+#Zrobione z myślą, by nie zaśmiecać kodu długimi printami/returnami
 
 def cls():
     os.system("cls")
@@ -16,16 +16,16 @@ def menu_login():
 def login_content():
     return (
         "1;Gorlowski;1234\n",
-        "2;Nowak;1243\n",
-        "3;Kowalski;4321\n"
+        "2;Dudus;1243\n",
+        "3;Nowakowski;SilneHaslo\n"
     )
 
 
 def users_content():
     return (
-        "1;Orłowski;Grzegorz;Project.py Manager\n",
-        "2;Nowak;Daniel;Dev\n",
-        "3;Kowalski;Jan;Dev\n"
+        "1;Grzegorz;Orlowski;Project Manager\n",
+        "2;Daniel;Dudkowski;Dev\n",
+        "3;Jan;Nowak;Analityk\n"
     )
 
 
@@ -41,9 +41,9 @@ def manager_menu():
     print(
         "[1] ⚡~Wyświetl swoje zadania\n",
         "[2] ⚡~Wyświetl swoje projekty\n",
-        "[3] ⚡~Zarządzanie zadaniem(dodaj, modyfikuj, przypisz / utworzZadania)\n",
+        "[3] ⚡~Zarządzanie zadaniem(dodaj, modyfikuj, utworzZadania)\n",
         "[4] ⚡~Zarządzanie projektem(dodaj, modyfikuj, przypisz)\n",
-        "[5] ⚡~Zarządzanie pracownikiem(dodaj, usuń, modyfikuj, przypiszDoZadania)\n",
+        "[5] ⚡~Zarządzanie pracownikiem(dodaj, modyfikuj)\n",
         "[0] ⚡~Wyloguj"
     )
 def printManagmentProjects():
@@ -65,9 +65,9 @@ def printManagmentProject():
 
 def worker_menu():
     print(
-        "\n[1] ⚡~Wyświetl zadania(wg. statusu, priorytetu, terminów, ludzi - przypisane do mnie)\n",
+        "\n[1] ⚡~Wyświetl zadania(Przypisane do mnie)\n",
         "[2] ⚡~Zarządzanie zadaniem(modyfikuj *(status, logi_pracy)* )\n",
-        "[3] ⚡~Wyświetl projekty(przypisane do pracownika)\n",
+        "[3] ⚡~Wyświetl projekty(przypisane do mnie)\n",
         "[0] ⚡~Wyloguj\n"
     )
 def print_manage_task():
@@ -83,10 +83,9 @@ def print_modify_task():
           "[4] ⚡~Zmien wlasciciela\n"
           "[0] ⚡~Anuluj")
 def print_manage_worker():
-    print("\n[1] ⚡~ Listuj pracownikow\n"
+    print("\n[1] ⚡~Listuj pracownikow\n"
           "[2] ⚡~Dodaj pracownika\n"
-          "[3] ⚡~Usun pracownika\n"
-          "[4] ⚡~Zarzadzaj pracownikiem\n"
+          "[3] ⚡~Zarzadzaj pracownikiem\n"
           "[0] ⚡~Anuluj")
 def print_modify_worker():
     print("\n[1] ⚡~Zmien login\n"
@@ -94,6 +93,6 @@ def print_modify_worker():
           "[3] ⚡~Zmien nazwisko\n"
           "[0] ⚡~Anuluj")
 def worker_or_menago():
-    print("\n[1] ⚡~Pracownik\n"
-          "[2] ⚡~Manager\n"
+    print("\n[1] ⚡~Dodaj Pracownik\n"
+          "[2] ⚡~Dodaj Manager\n"
           "[0] ⚡~Anuluj")

@@ -1,5 +1,6 @@
 from PPYProject.src.modules.Manager import *
 from PPYProject.src.modules.Pracownik import *
+#Paczka metod Autoryzujących logowanie
 def login():
     username = input("Podaj login:\n")
     password = input("Podaj hasło:\n")
@@ -12,6 +13,8 @@ def login():
                 return content[0]
     del file
     return -1
+
+#Tworzy instancje zalogowanego usera
 def make(id):
     file = FileHelper('users',EFile.USERS.value)
     lines= file.read_file_all().split('\n')

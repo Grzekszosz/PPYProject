@@ -1,6 +1,7 @@
 import os
 from PPYProject.src.modules.EFile import *
 
+#KLasa pomocnicza do obsługi plików
 class FileHelper:
     name = ''
     pat = ''
@@ -11,15 +12,17 @@ class FileHelper:
 
     def __del__(self):
         pass
-
+    #Zapisuje do pliku, można wskazać z jakim parametrem
     def write_to_file(self, content, parameter='a'):
         with open(self.pat, parameter) as file:
             file.writelines(content)
 
+    #Zwraca zawartość całego pliku w strinu
     def read_file_all(self):
         with open(self.pat, 'r') as file:
             return file.read()
 
+    #Zwraca zawartość pliku w liniach
     def read_lines(self):
         ret = []
         with open(self.pat, 'r') as file:
@@ -28,10 +31,12 @@ class FileHelper:
                 ret.append(line.strip())
         return ret
 
+    #Zwraca zawartosć folderu w liniach
     def listFolder(self):
         ret = os.listdir(self.pat)
         return ret
 
+    #W zależności od podanego sufixa sprawdza czy user o danym ID istnieje w pliku
     def find(self,Id,sufix=None):
         lines=self.read_lines()
         if self.name==EFile.USERS.name:
@@ -48,6 +53,7 @@ class FileHelper:
             if tasks.__contains__(Id):
                 return True
         return False
+    #Zwraca ostatnie ID Taska lub Logu
     def lastId(self):
         max = 0
         if self.name==EFile.TASKS.name or self.name == EFile.LOGS.name:

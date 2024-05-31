@@ -7,10 +7,10 @@ from modules.Log import Log
 from PPYProject.utils import auth
 from PPYProject.utils import pullContent
 from PPYProject.utils.printScripts import *
-from PPYProject.src.modules.Status import *
-from PPYProject.src.modules.Priority import *
-# priorytet(*bardzoniski, niski, normalny, wysoki, bardzowysoki *)
-#(*otwarte, wtoku, zamknięte, blokada *)
+from PPYProject.src.modules.EStatus import *
+from PPYProject.src.modules.EPriority import *
+
+#Klasa dla TASK
 class Task(Quest):
     pirority=''
     status=''
@@ -28,7 +28,7 @@ class Task(Quest):
         self.project = None
 
 
-
+    #Zwraca string Taska
     def getTask(self):
         log=pullContent.logsIds(self)
 
@@ -42,16 +42,18 @@ class Task(Quest):
                 self.beginDate+'\n'+
                 self.endDate)
 
+    #Drukuje Taska
     def toString(self):
         print("\n\n"+
                "Id: "+self.id+'\n'+
               "Nazwa zadania: "+self.name+'\n'+
                "Opis: "+self.description+'\n'+
               "Prirorytet: "+self.pirority+'\n'+
-              "Status: "+self.status+'\n'+
+              "EStatus: "+self.status+'\n'+
               "Wlasciciel: "+self.owner.imie+' '+self.owner.nazwisko+'\n'+
               "Projekt: "+self.project.name+'\n')
 
+    #Dopisuje do taska logi
     def initializeLogs(self,idsLogs):
         list=os.listdir(EFile.LOGS.value)
         for element in list:
@@ -67,10 +69,13 @@ class Task(Quest):
                     log.task=self
                     self.logs.append(log)
 
+    #Dopisuje do taska właściciela
     def initializeOwner(self, idOwner):
         file = FileHelper(EFile.USERS.name, EFile.USERS.value)
         if file.find(idOwner,'owner') == True:
             self.owner = auth.make(idOwner)
+
+    #Dopisuje do Taska project w którym jest przypisany
 
     def initalizeProj(self,idTask):
         listProj=os.listdir(EFile.PROJECTS.value)
@@ -79,50 +84,56 @@ class Task(Quest):
             if file.find(idTask):
                 self.project=pullContent.getProject(idTask)
 
+    #Listuje logi(drukujęc je odrazu)
     def listLogs(self):
         for log in self.logs:
             log.toString()
 
+    #Zmiana statusu Taska
     def changeStatus(self):
         print("\nObecny status: ", self.status,"\nWybierz status: ")
-        status = Status.get_status()
+        status = EStatus.get_status()
         if status!=None:
             self.status=str(status)
+    #Zmiana priorytetu Taska
     def changePriori(self):
         print("\nObecny priorytet:", self.pirority, "\nWybierz Priorytet: ")
-        priori=Priority.get_priori()
+        priori=EPriority.get_priori()
         if priori !=None:
             self.pirority = str(priori)
+
+    #Zarządzanie taskiem
     def manageTask(self):
         goodChar = True
         while goodChar:
             print_modify_task()
             char_modify = readchar.readchar()
             match char_modify:
-                case '1':
+                case '1':#Dodanie loga do taska
                     Log.addLog(self,self.owner)
-                case '2':
+                case '2':#Listuje logi
                     cls()
                     self.listLogs()
-                case '3':
+                case '3':#Zmiana statusu oraz priorytetu
                     self.changeStatus()
                     self.changePriori()
                     cls()
-                case '4':
+                case '4':#Zmiana wlasciciela Taska
                     self.owner=pullContent.getUser()
                     break
                 case '0':
                     break
                 case _:
                     cls()
+    #Zapisywanie Taska do pliku(nadpisuje wszystko)
     def writeMe(self):
         fileName=str(self.id)+".txt"
         file=FileHelper(fileName,EFile.TASKS.value/fileName)
         file.write_to_file(self.getTask(),'w')
 
+    #Tworzenie nowego Taska
     @staticmethod
     def addTask(user):
-        goodChar = True
         fileId = FileHelper(EFile.TASKS.name, EFile.TASKS.value)
         task = Task(int(fileId.lastId()) + 1,
                     input("Podaj nazwe zadania: "), input("Podaj opis zadania: "),

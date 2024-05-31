@@ -1,4 +1,3 @@
 1;Gorlowski;1234
-2;Dudkowski;1243
-3;Nowak;4321
-4;Kwiatkowski;1234
+2;Dudus;1243
+3;Nowakowski;SilneHaslo

@@ -11,6 +11,7 @@ from utils import pullContent
 from utils.printScripts import *
 from utils.pullContent import getUsers
 
+#Klasa projektu
 
 class Project(Quest):
     pepole=[]
@@ -23,6 +24,7 @@ class Project(Quest):
         self.master = None
         self.tasks = []
 
+    #Drukuje informacje o projekcie
     def toString(self):
         print("[",self.id,"] Nazwa projektu: "+self.name+'\n'+"Opis projektu: "
               +self.description+'\n'+"Czas rozpoczęcia: "+self.beginDate+
@@ -30,6 +32,7 @@ class Project(Quest):
               +self.master.imie+' '+self.master.nazwisko+'\n'+"Liczba taskow: "
               +str(len(self.tasks))+'\n'+"Liczba osob: "+str(len(self.pepole))+'\n')
 
+    #Ustawia osobe odpowiedzialną projektu
     def initializeMaster(self,idMaster):
         file=FileHelper(EFile.USERS.name,EFile.USERS.value)
         if file.find(idMaster,'Project Manager') == True:
@@ -37,6 +40,8 @@ class Project(Quest):
         else:
             print("Nie udało się zmapować kierownika projektu do projektu", self.name)
 
+
+    #Ustawia liste taskow dla projektu
     def initializeTasks(self,idsTasks):
         list=os.listdir(EFile.TASKS.value)
         for element in list:
@@ -53,15 +58,19 @@ class Project(Quest):
                     task.initializeLogs(lines[6])
                     self.tasks.append(task)
 
+
+    #Ustawia liste przypisanych pracownikow do projektu
     def initializeWorkers(self,idsWorkers):
         file=FileHelper(EFile.USERS.name,EFile.USERS.value)
         for id in idsWorkers:
             if file.find(id)==True:
                 self.pepole.append(auth.make(id))
+    #Zapisuje projekt
     def writeMe(self):
         fileName=str(self.name)+'.txt'
         file=FileHelper(fileName,EFile.PROJECTS.value/fileName)
         file.write_to_file(self.getProjectExisted(),'w')
+    #Zwraca string projektu
     def getProjectExisted(self):
         taskIds=self.tasksIds()
         pepoleIds=self.pepoleIds()
@@ -73,19 +82,21 @@ class Project(Quest):
                 taskIds+'\n'+
                 str(self.master.id))
 
+    #Zwraca string zawierający ID podpiętych tasków
     def tasksIds(self):
         ids=''
         for taskId in self.tasks:
             ids += str(taskId.id) + ','
         ids=ids.rstrip(',')
         return ids
+    #Zwraca string zawierający ID podpiętych pracowników
     def pepoleIds(self):
         ids=''
         for pepole in self.pepole:
             ids += str(pepole.id)+','
         ids=ids.rstrip(',')
         return ids
-
+    #Zmiana odpowiedzialnego Projektu
     def changeMaster(self):
         users=getUsers()
         masters=[]
@@ -107,6 +118,7 @@ class Project(Quest):
                     goodChar=False
                 else:
                     cls()
+    #Dodaje pracownika do Projektu
     def addWorker(self):
         goodChar = True
         potentialUser = []
@@ -138,6 +150,7 @@ class Project(Quest):
                 goodChar = False
             else:
                 cls()
+    #Usuwa pracownika z projektu
     def deleteWorker(self):
         goodChar=True
         ids=[]
@@ -156,6 +169,7 @@ class Project(Quest):
                 self.pepole.remove(deleteWorker)
                 goodChar=False
 
+    #Metoda Menu zarządzania projektem
     def manageProject(self):
         goodChar=True
         while goodChar:
@@ -168,7 +182,7 @@ class Project(Quest):
                     self.changeMaster()
                     break
                     goodChar= False
-                case '2':
+                case '2':#Zmiana Dat projektu
                     self.beginDate=input("Podaj nową datę rozpoczęcia: ")
                     self.endDate=input("Podaj nową date zakończenia: ")
                     goodChar = False
@@ -188,9 +202,9 @@ class Project(Quest):
 
                 case _:
                     pass
-
-
         pass
+
+    #Dodaje nowy projekt
     @staticmethod
     def addProject():
         lastId=pullContent.lastProjectId()

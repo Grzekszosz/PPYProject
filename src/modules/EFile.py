@@ -1,7 +1,7 @@
 from enum import Enum
 from pathlib import Path
 
-
+#ENUM Dla plików
 class EFile(Enum):
     FILES = Path('files')
     PROJECTS = Path('files/projects')

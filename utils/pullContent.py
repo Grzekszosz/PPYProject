@@ -9,9 +9,8 @@ from PPYProject.src.modules.FileHelper import *
 from PPYProject.src.modules.Project import *
 from modules.Manager import Manager
 from utils import printScripts
-
-
-#TODO to można by było zrobić bardziej dynamic
+#Paczka metod do wciągania danych z plików
+#Zwraca liste instancji Projektow/Taskow
 def pull(file):
     lists=file.listFolder()
     ret=[]
@@ -36,6 +35,8 @@ def pull(file):
             task.initalizeProj(taskLines[1])
             ret.append(task)
     return ret
+
+#Zwraca projekt o podanym ID
 def getProject(id):
     projList=os.listdir(EFile.PROJECTS.value)
     for proj in projList:
@@ -48,11 +49,14 @@ def getProject(id):
             project.initializeTasks(listFile[5])
             return project
     return None
+#Zwraca liste userow
 def getUsers():
     ret=[]
     file=FileHelper(EFile.USERS.name,EFile.USERS.value)
     list = file.read_lines()
     for user in list:
+        if user=='':
+            continue
         content=user.split(';')
         if content[3] == 'Project Manager':
             ret.append(Manager(content[0],content[1],content[2],content[3]))
@@ -60,24 +64,32 @@ def getUsers():
             ret.append(Pracownik(content[0],content[1],content[2],content[3]))
     return ret
 
+
+#Drukuje na podstawie podanej listy userow informacje o userach
 def printUsers(users):
     for user in users:
-        print('[' + user.id + '] ' + user.imie + ' ' + user.nazwisko)
+        print('[' + user.id + '] ' + user.imie + ' ' + user.nazwisko+' '+user.stanowisko)
+
+#Zwraca wybraną osobę
 def getUser():
     users=getUsers()
     goodChar = True
     while goodChar:
         printUsers(users)
-        choseUser=input("Wybierz osobę którą chcesz przypisać: ")
+        choseUser=input("Wybierz osobę: ")
         for user in users:
             if user.id == choseUser:
                 return user
         printScripts.cls()
 
+
+#Drukuje przekazaną liste projektów
 def printProjects(projects):
     for project in projects:
         print("[" + project.id + "] " + project.name + " " + project.description)
 
+
+#Zwraca stringa zawierajacego ID logow w podanym tasku
 def logsIds(task):
     logId=''
     file=FileHelper(EFile.LOGS.name,EFile.LOGS.value)
@@ -90,6 +102,8 @@ def logsIds(task):
         logId.rstrip(',')
     return logId
 
+
+#Pozwala wybrac ktory projekt chcemyu przypisac do podanego taska
 def getProjectS(task):
     goodChar=True
     projects = pull(FileHelper(EFile.PROJECTS.name, EFile.PROJECTS.value))
@@ -108,6 +122,7 @@ def getProjectS(task):
     Rproject.writeMe()
     return Rproject
 
+#Zwraca najwyzsze obecnie ID projektu w systemie
 def lastProjectId():
     file=FileHelper(EFile.PROJECTS.name,EFile.PROJECTS.value)
     listProject=file.listFolder()
@@ -118,6 +133,7 @@ def lastProjectId():
         if int(max)<int(content[0]):
             max=content[0]
     return max
+#Zwraca najwyższe obecnie ID usera w systemie
 def lastPepoleId():
     max=0
     users=getUsers()

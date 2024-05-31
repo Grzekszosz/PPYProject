@@ -2,14 +2,15 @@ from enum import Enum
 
 import readchar
 
-
-class Priority(Enum):
+#ENUM dla priorytetu
+class EPriority(Enum):
     VERYLOW = ('Bardzo niski')
     LOW = ('Niski')
     NORMAL = ('Normalny')
     HIGH = ("Wysoki")
     VERYHIGH=("Bardzo wysoki")
 
+    #Drukuje wszystkie wartości
     @classmethod
     def print_all_values(cls):
         # cls odnosi się do samej klasy EFile
@@ -19,6 +20,7 @@ class Priority(Enum):
             i+=1
         print("[0] ~Anuluj")
 
+    #Zwraca liczbe ENUMA
     @classmethod
     def number_of_values(cls):
         i=1
@@ -29,26 +31,27 @@ class Priority(Enum):
             i += 1
         return list
 
+    #Zwraca wybrany priorytet
     @classmethod
     def get_priori(cls):
         cls.print_all_values()
         goodChar =True
         while goodChar:
             readPriori=readchar.readchar()
-            if Priority.number_of_values().__contains__(readPriori):
+            if EPriority.number_of_values().__contains__(readPriori):
                 goodChar=False
             match readPriori:
                 case '0':
                     return None
                 case '1':
-                    return Priority.VERYLOW.value
+                    return EPriority.VERYLOW.value
                 case '2':
-                    return Priority.LOW.value
+                    return EPriority.LOW.value
                 case '3':
-                    return Priority.NORMAL.value
+                    return EPriority.NORMAL.value
                 case '4':
-                    return Priority.HIGH.value
+                    return EPriority.HIGH.value
                 case '5':
-                    return Priority.VERYHIGH.value
+                    return EPriority.VERYHIGH.value
                 case _:
                     pass

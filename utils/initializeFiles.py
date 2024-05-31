@@ -3,13 +3,14 @@ import os
 from PPYProject.src.modules.EFile import *
 from PPYProject.src.modules.FileHelper import FileHelper
 from PPYProject.utils.printScripts import *
-
+#Paczka inicjalizująca podstawowe pliki do pracy systemu
+#Mapuje funkcje
 map_content = {
     EFile.LOGIN.name: login_content(),
     EFile.USERS.name: users_content()
 }
 
-
+#Inicjalizuje pliki
 def initialize_files():
     for i in EFile:
 

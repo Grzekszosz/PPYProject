@@ -1,3 +1,0 @@
-1;Grzegorz;Orlowski;Project Manager
-2;Daniel;Dudkowski;Dev
-3;Jan;Nowak;Dev

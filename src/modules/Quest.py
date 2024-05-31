@@ -1,3 +1,4 @@
+#Klasa nadrzędna dla Taska oraz Projectu <- można dodać wspólne metody
 class Quest:
     iduniq =0
     id=''
